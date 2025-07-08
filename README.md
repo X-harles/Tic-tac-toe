@@ -39,3 +39,28 @@ class TicTacToeGUI extends JFrame implements ActionListener {
             }
         }
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (e.getSource() == buttons[i][j] && board[i][j] == ' ') {
+                    char currentMark = player1Turn ? player1Mark : player2Mark;
+                    String currentPlayer = player1Turn ? player1Name : player2Name;
+
+                    board[i][j] = currentMark;
+                    buttons[i][j].setText(String.valueOf(currentMark));
+
+                    if (checkWin(currentMark)) {
+                        showResult(currentPlayer + " wins!");
+                        return;
+                    } else if (checkDraw()) {
+                        showResult("It's a draw!");
+                        return;
+                    }
+
+                    player1Turn = !player1Turn;
+                    return;
+                }
+            }
+        }
+    }
